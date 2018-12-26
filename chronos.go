@@ -13,7 +13,6 @@ type TimeInterval struct {
 func New() *TimeInterval {
 	return &TimeInterval{
 		Start: time.Now(),
-		End:   nil,
 	}
 }
 
@@ -22,21 +21,21 @@ func (t *TimeInterval) Finish() {
 }
 
 func (t *TimeInterval) StringSec() string {
-	if t.End == time.Time(nil) {
+	if t.End.IsZero() {
 		return "not_finished"
 	}
 	return fmt.Sprintf("%.2f", t.End.Sub(t.Start).Seconds())
 }
 
 func (t *TimeInterval) StringMilisec() string {
-	if t.End == time.Time(nil) {
+	if t.End.IsZero() {
 		return "not_finished"
 	}
 	return fmt.Sprintf("%d", t.End.Sub(t.Start).Nanoseconds()/int64(time.Millisecond))
 }
 
 func (t *TimeInterval) String() string {
-	if t.End == time.Time(nil) {
+	if t.End.IsZero() {
 		return "not_finished"
 	}
 	return fmt.Sprintf("%s", t.End.Sub(t.Start).String())
